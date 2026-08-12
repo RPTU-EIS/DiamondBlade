@@ -1,0 +1,532 @@
+module DB_AIP_bw_cycle1(clk, reset_n);
+input clk;
+input reset_n;
+
+
+function automatic blackboxing();
+	blackboxing = 1'b1;
+endfunction
+
+function automatic threat_model_global();
+	threat_model_global = 1'b1;
+endfunction
+
+function automatic threat_model_start();
+	threat_model_start = 1'b1;
+endfunction
+
+function automatic invariants();
+	invariants =
+		(DUV1.key_reg != 512'b0) && (DUV2.key_reg != 512'b0) &&
+		(DUV1.key_reg[15:12] != 128'b0) && (DUV2.key_reg[15:12] != 128'b0);
+endfunction
+
+invariant_assumption: assume property(@(posedge clk) disable iff(reset_n==0) invariants());
+
+
+function automatic input_equivalence_except_src();
+	input_equivalence_except_src = (
+		(DUV1.address == DUV2.address) &&
+		(DUV1.clk == DUV2.clk) &&
+		(DUV1.cptra_pwrgood == DUV2.cptra_pwrgood) &&
+		(DUV1.cs == DUV2.cs) &&
+		(DUV1.debugUnlock_or_scan_mode_switch == DUV2.debugUnlock_or_scan_mode_switch) &&
+		(DUV1.kv_rd_resp == DUV2.kv_rd_resp) &&
+		(DUV1.kv_wr_resp == DUV2.kv_wr_resp) &&
+		(DUV1.reset_n == DUV2.reset_n) &&
+		(DUV1.we == DUV2.we) &&
+		(DUV1.write_data == DUV2.write_data)
+	);
+endfunction
+
+
+function automatic state_equivalence_except_core$hmac_ctrl_reg();
+	state_equivalence_except_core$hmac_ctrl_reg = (
+		(DUV1.block_reg_lock == DUV2.block_reg_lock) &&
+		(DUV1.error_flag_reg == DUV2.error_flag_reg) &&
+		(DUV1.key_mode_error_reg == DUV2.key_mode_error_reg) &&
+		(DUV1.key_zero_error_reg == DUV2.key_zero_error_reg) &&
+		(DUV1.kv_data_present == DUV2.kv_data_present) &&
+		(DUV1.kv_key_data_present == DUV2.kv_key_data_present) &&
+		(DUV1.kv_reg == DUV2.kv_reg) &&
+		(DUV1.ready_reg == DUV2.ready_reg) &&
+		(DUV1.tag_reg == DUV2.tag_reg) &&
+		(DUV1.tag_valid_reg == DUV2.tag_valid_reg) &&
+		(DUV1.core.digest_valid_reg == DUV2.core.digest_valid_reg) &&
+		(DUV1.core.hmac_ctrl_last == DUV2.core.hmac_ctrl_last) &&
+		(DUV1.core.mode_reg == DUV2.core.mode_reg) &&
+		(DUV1.core.u_sha512_core_h1.H0_reg == DUV2.core.u_sha512_core_h1.H0_reg) &&
+		(DUV1.core.u_sha512_core_h1.H1_reg == DUV2.core.u_sha512_core_h1.H1_reg) &&
+		(DUV1.core.u_sha512_core_h1.H2_reg == DUV2.core.u_sha512_core_h1.H2_reg) &&
+		(DUV1.core.u_sha512_core_h1.H3_reg == DUV2.core.u_sha512_core_h1.H3_reg) &&
+		(DUV1.core.u_sha512_core_h1.H4_reg == DUV2.core.u_sha512_core_h1.H4_reg) &&
+		(DUV1.core.u_sha512_core_h1.H5_reg == DUV2.core.u_sha512_core_h1.H5_reg) &&
+		(DUV1.core.u_sha512_core_h1.H6_reg == DUV2.core.u_sha512_core_h1.H6_reg) &&
+		(DUV1.core.u_sha512_core_h1.H7_reg == DUV2.core.u_sha512_core_h1.H7_reg) &&
+		(DUV1.core.u_sha512_core_h1.a_reg == DUV2.core.u_sha512_core_h1.a_reg) &&
+		(DUV1.core.u_sha512_core_h1.b_reg == DUV2.core.u_sha512_core_h1.b_reg) &&
+		(DUV1.core.u_sha512_core_h1.c_reg == DUV2.core.u_sha512_core_h1.c_reg) &&
+		(DUV1.core.u_sha512_core_h1.d_reg == DUV2.core.u_sha512_core_h1.d_reg) &&
+		(DUV1.core.u_sha512_core_h1.digest_valid_reg == DUV2.core.u_sha512_core_h1.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h1.e_reg == DUV2.core.u_sha512_core_h1.e_reg) &&
+		(DUV1.core.u_sha512_core_h1.f_reg == DUV2.core.u_sha512_core_h1.f_reg) &&
+		(DUV1.core.u_sha512_core_h1.g_reg == DUV2.core.u_sha512_core_h1.g_reg) &&
+		(DUV1.core.u_sha512_core_h1.h_reg == DUV2.core.u_sha512_core_h1.h_reg) &&
+		(DUV1.core.u_sha512_core_h1.init_reg == DUV2.core.u_sha512_core_h1.init_reg) &&
+		(DUV1.core.u_sha512_core_h1.masking_rnd == DUV2.core.u_sha512_core_h1.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h1.ready_reg == DUV2.core.u_sha512_core_h1.ready_reg) &&
+		(DUV1.core.u_sha512_core_h1.rnd_ctr_reg == DUV2.core.u_sha512_core_h1.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.round_ctr_reg == DUV2.core.u_sha512_core_h1.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.sha512_ctrl_reg == DUV2.core.u_sha512_core_h1.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h1.w_mem_inst.w_mem) &&
+		(DUV1.core.u_sha512_core_h2.H0_reg == DUV2.core.u_sha512_core_h2.H0_reg) &&
+		(DUV1.core.u_sha512_core_h2.H1_reg == DUV2.core.u_sha512_core_h2.H1_reg) &&
+		(DUV1.core.u_sha512_core_h2.H2_reg == DUV2.core.u_sha512_core_h2.H2_reg) &&
+		(DUV1.core.u_sha512_core_h2.H3_reg == DUV2.core.u_sha512_core_h2.H3_reg) &&
+		(DUV1.core.u_sha512_core_h2.H4_reg == DUV2.core.u_sha512_core_h2.H4_reg) &&
+		(DUV1.core.u_sha512_core_h2.H5_reg == DUV2.core.u_sha512_core_h2.H5_reg) &&
+		(DUV1.core.u_sha512_core_h2.H6_reg == DUV2.core.u_sha512_core_h2.H6_reg) &&
+		(DUV1.core.u_sha512_core_h2.H7_reg == DUV2.core.u_sha512_core_h2.H7_reg) &&
+		(DUV1.core.u_sha512_core_h2.a_reg == DUV2.core.u_sha512_core_h2.a_reg) &&
+		(DUV1.core.u_sha512_core_h2.b_reg == DUV2.core.u_sha512_core_h2.b_reg) &&
+		(DUV1.core.u_sha512_core_h2.c_reg == DUV2.core.u_sha512_core_h2.c_reg) &&
+		(DUV1.core.u_sha512_core_h2.d_reg == DUV2.core.u_sha512_core_h2.d_reg) &&
+		(DUV1.core.u_sha512_core_h2.digest_valid_reg == DUV2.core.u_sha512_core_h2.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h2.e_reg == DUV2.core.u_sha512_core_h2.e_reg) &&
+		(DUV1.core.u_sha512_core_h2.f_reg == DUV2.core.u_sha512_core_h2.f_reg) &&
+		(DUV1.core.u_sha512_core_h2.g_reg == DUV2.core.u_sha512_core_h2.g_reg) &&
+		(DUV1.core.u_sha512_core_h2.h_reg == DUV2.core.u_sha512_core_h2.h_reg) &&
+		(DUV1.core.u_sha512_core_h2.init_reg == DUV2.core.u_sha512_core_h2.init_reg) &&
+		(DUV1.core.u_sha512_core_h2.masking_rnd == DUV2.core.u_sha512_core_h2.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h2.ready_reg == DUV2.core.u_sha512_core_h2.ready_reg) &&
+		(DUV1.core.u_sha512_core_h2.rnd_ctr_reg == DUV2.core.u_sha512_core_h2.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.round_ctr_reg == DUV2.core.u_sha512_core_h2.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.sha512_ctrl_reg == DUV2.core.u_sha512_core_h2.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h2.w_mem_inst.w_mem) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.rnd_reg) &&
+		(DUV1.hmac_block_kv_read.error_code == DUV2.hmac_block_kv_read.error_code) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.kv_fsm_ps == DUV2.hmac_block_kv_read.kv_read_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.num_dwords_data == DUV2.hmac_block_kv_read.kv_read_fsm.num_dwords_data) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.offset == DUV2.hmac_block_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_key_kv_read.error_code == DUV2.hmac_key_kv_read.error_code) &&
+		(DUV1.hmac_key_kv_read.kv_read_fsm.kv_fsm_ps == DUV2.hmac_key_kv_read.kv_read_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_key_kv_read.kv_read_fsm.offset == DUV2.hmac_key_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_result_kv_write.error_code == DUV2.hmac_result_kv_write.error_code) &&
+		(DUV1.hmac_result_kv_write.kv_dest_write_fsm.kv_fsm_ps == DUV2.hmac_result_kv_write.kv_dest_write_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_result_kv_write.kv_dest_write_fsm.offset == DUV2.hmac_result_kv_write.kv_dest_write_fsm.offset) &&
+		(DUV1.i_hmac_reg.field_storage == DUV2.i_hmac_reg.field_storage)
+	);
+endfunction
+
+function automatic state_equivalence_except_hmac_block_kv_read$kv_read_fsm$kv_fsm_ps();
+	state_equivalence_except_hmac_block_kv_read$kv_read_fsm$kv_fsm_ps = (
+		(DUV1.block_reg_lock == DUV2.block_reg_lock) &&
+		(DUV1.error_flag_reg == DUV2.error_flag_reg) &&
+		(DUV1.key_mode_error_reg == DUV2.key_mode_error_reg) &&
+		(DUV1.key_zero_error_reg == DUV2.key_zero_error_reg) &&
+		(DUV1.kv_data_present == DUV2.kv_data_present) &&
+		(DUV1.kv_key_data_present == DUV2.kv_key_data_present) &&
+		(DUV1.kv_reg == DUV2.kv_reg) &&
+		(DUV1.ready_reg == DUV2.ready_reg) &&
+		(DUV1.tag_reg == DUV2.tag_reg) &&
+		(DUV1.tag_valid_reg == DUV2.tag_valid_reg) &&
+		(DUV1.core.digest_valid_reg == DUV2.core.digest_valid_reg) &&
+		(DUV1.core.hmac_ctrl_last == DUV2.core.hmac_ctrl_last) &&
+		(DUV1.core.hmac_ctrl_reg == DUV2.core.hmac_ctrl_reg) &&
+		(DUV1.core.mode_reg == DUV2.core.mode_reg) &&
+		(DUV1.core.u_sha512_core_h1.H0_reg == DUV2.core.u_sha512_core_h1.H0_reg) &&
+		(DUV1.core.u_sha512_core_h1.H1_reg == DUV2.core.u_sha512_core_h1.H1_reg) &&
+		(DUV1.core.u_sha512_core_h1.H2_reg == DUV2.core.u_sha512_core_h1.H2_reg) &&
+		(DUV1.core.u_sha512_core_h1.H3_reg == DUV2.core.u_sha512_core_h1.H3_reg) &&
+		(DUV1.core.u_sha512_core_h1.H4_reg == DUV2.core.u_sha512_core_h1.H4_reg) &&
+		(DUV1.core.u_sha512_core_h1.H5_reg == DUV2.core.u_sha512_core_h1.H5_reg) &&
+		(DUV1.core.u_sha512_core_h1.H6_reg == DUV2.core.u_sha512_core_h1.H6_reg) &&
+		(DUV1.core.u_sha512_core_h1.H7_reg == DUV2.core.u_sha512_core_h1.H7_reg) &&
+		(DUV1.core.u_sha512_core_h1.a_reg == DUV2.core.u_sha512_core_h1.a_reg) &&
+		(DUV1.core.u_sha512_core_h1.b_reg == DUV2.core.u_sha512_core_h1.b_reg) &&
+		(DUV1.core.u_sha512_core_h1.c_reg == DUV2.core.u_sha512_core_h1.c_reg) &&
+		(DUV1.core.u_sha512_core_h1.d_reg == DUV2.core.u_sha512_core_h1.d_reg) &&
+		(DUV1.core.u_sha512_core_h1.digest_valid_reg == DUV2.core.u_sha512_core_h1.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h1.e_reg == DUV2.core.u_sha512_core_h1.e_reg) &&
+		(DUV1.core.u_sha512_core_h1.f_reg == DUV2.core.u_sha512_core_h1.f_reg) &&
+		(DUV1.core.u_sha512_core_h1.g_reg == DUV2.core.u_sha512_core_h1.g_reg) &&
+		(DUV1.core.u_sha512_core_h1.h_reg == DUV2.core.u_sha512_core_h1.h_reg) &&
+		(DUV1.core.u_sha512_core_h1.init_reg == DUV2.core.u_sha512_core_h1.init_reg) &&
+		(DUV1.core.u_sha512_core_h1.masking_rnd == DUV2.core.u_sha512_core_h1.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h1.ready_reg == DUV2.core.u_sha512_core_h1.ready_reg) &&
+		(DUV1.core.u_sha512_core_h1.rnd_ctr_reg == DUV2.core.u_sha512_core_h1.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.round_ctr_reg == DUV2.core.u_sha512_core_h1.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.sha512_ctrl_reg == DUV2.core.u_sha512_core_h1.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h1.w_mem_inst.w_mem) &&
+		(DUV1.core.u_sha512_core_h2.H0_reg == DUV2.core.u_sha512_core_h2.H0_reg) &&
+		(DUV1.core.u_sha512_core_h2.H1_reg == DUV2.core.u_sha512_core_h2.H1_reg) &&
+		(DUV1.core.u_sha512_core_h2.H2_reg == DUV2.core.u_sha512_core_h2.H2_reg) &&
+		(DUV1.core.u_sha512_core_h2.H3_reg == DUV2.core.u_sha512_core_h2.H3_reg) &&
+		(DUV1.core.u_sha512_core_h2.H4_reg == DUV2.core.u_sha512_core_h2.H4_reg) &&
+		(DUV1.core.u_sha512_core_h2.H5_reg == DUV2.core.u_sha512_core_h2.H5_reg) &&
+		(DUV1.core.u_sha512_core_h2.H6_reg == DUV2.core.u_sha512_core_h2.H6_reg) &&
+		(DUV1.core.u_sha512_core_h2.H7_reg == DUV2.core.u_sha512_core_h2.H7_reg) &&
+		(DUV1.core.u_sha512_core_h2.a_reg == DUV2.core.u_sha512_core_h2.a_reg) &&
+		(DUV1.core.u_sha512_core_h2.b_reg == DUV2.core.u_sha512_core_h2.b_reg) &&
+		(DUV1.core.u_sha512_core_h2.c_reg == DUV2.core.u_sha512_core_h2.c_reg) &&
+		(DUV1.core.u_sha512_core_h2.d_reg == DUV2.core.u_sha512_core_h2.d_reg) &&
+		(DUV1.core.u_sha512_core_h2.digest_valid_reg == DUV2.core.u_sha512_core_h2.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h2.e_reg == DUV2.core.u_sha512_core_h2.e_reg) &&
+		(DUV1.core.u_sha512_core_h2.f_reg == DUV2.core.u_sha512_core_h2.f_reg) &&
+		(DUV1.core.u_sha512_core_h2.g_reg == DUV2.core.u_sha512_core_h2.g_reg) &&
+		(DUV1.core.u_sha512_core_h2.h_reg == DUV2.core.u_sha512_core_h2.h_reg) &&
+		(DUV1.core.u_sha512_core_h2.init_reg == DUV2.core.u_sha512_core_h2.init_reg) &&
+		(DUV1.core.u_sha512_core_h2.masking_rnd == DUV2.core.u_sha512_core_h2.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h2.ready_reg == DUV2.core.u_sha512_core_h2.ready_reg) &&
+		(DUV1.core.u_sha512_core_h2.rnd_ctr_reg == DUV2.core.u_sha512_core_h2.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.round_ctr_reg == DUV2.core.u_sha512_core_h2.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.sha512_ctrl_reg == DUV2.core.u_sha512_core_h2.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h2.w_mem_inst.w_mem) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.rnd_reg) &&
+		(DUV1.hmac_block_kv_read.error_code == DUV2.hmac_block_kv_read.error_code) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.num_dwords_data == DUV2.hmac_block_kv_read.kv_read_fsm.num_dwords_data) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.offset == DUV2.hmac_block_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_key_kv_read.error_code == DUV2.hmac_key_kv_read.error_code) &&
+		(DUV1.hmac_key_kv_read.kv_read_fsm.kv_fsm_ps == DUV2.hmac_key_kv_read.kv_read_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_key_kv_read.kv_read_fsm.offset == DUV2.hmac_key_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_result_kv_write.error_code == DUV2.hmac_result_kv_write.error_code) &&
+		(DUV1.hmac_result_kv_write.kv_dest_write_fsm.kv_fsm_ps == DUV2.hmac_result_kv_write.kv_dest_write_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_result_kv_write.kv_dest_write_fsm.offset == DUV2.hmac_result_kv_write.kv_dest_write_fsm.offset) &&
+		(DUV1.i_hmac_reg.field_storage == DUV2.i_hmac_reg.field_storage)
+	);
+endfunction
+
+function automatic state_equivalence_except_hmac_key_kv_read$kv_read_fsm$kv_fsm_ps();
+	state_equivalence_except_hmac_key_kv_read$kv_read_fsm$kv_fsm_ps = (
+		(DUV1.block_reg_lock == DUV2.block_reg_lock) &&
+		(DUV1.error_flag_reg == DUV2.error_flag_reg) &&
+		(DUV1.key_mode_error_reg == DUV2.key_mode_error_reg) &&
+		(DUV1.key_zero_error_reg == DUV2.key_zero_error_reg) &&
+		(DUV1.kv_data_present == DUV2.kv_data_present) &&
+		(DUV1.kv_key_data_present == DUV2.kv_key_data_present) &&
+		(DUV1.kv_reg == DUV2.kv_reg) &&
+		(DUV1.ready_reg == DUV2.ready_reg) &&
+		(DUV1.tag_reg == DUV2.tag_reg) &&
+		(DUV1.tag_valid_reg == DUV2.tag_valid_reg) &&
+		(DUV1.core.digest_valid_reg == DUV2.core.digest_valid_reg) &&
+		(DUV1.core.hmac_ctrl_last == DUV2.core.hmac_ctrl_last) &&
+		(DUV1.core.hmac_ctrl_reg == DUV2.core.hmac_ctrl_reg) &&
+		(DUV1.core.mode_reg == DUV2.core.mode_reg) &&
+		(DUV1.core.u_sha512_core_h1.H0_reg == DUV2.core.u_sha512_core_h1.H0_reg) &&
+		(DUV1.core.u_sha512_core_h1.H1_reg == DUV2.core.u_sha512_core_h1.H1_reg) &&
+		(DUV1.core.u_sha512_core_h1.H2_reg == DUV2.core.u_sha512_core_h1.H2_reg) &&
+		(DUV1.core.u_sha512_core_h1.H3_reg == DUV2.core.u_sha512_core_h1.H3_reg) &&
+		(DUV1.core.u_sha512_core_h1.H4_reg == DUV2.core.u_sha512_core_h1.H4_reg) &&
+		(DUV1.core.u_sha512_core_h1.H5_reg == DUV2.core.u_sha512_core_h1.H5_reg) &&
+		(DUV1.core.u_sha512_core_h1.H6_reg == DUV2.core.u_sha512_core_h1.H6_reg) &&
+		(DUV1.core.u_sha512_core_h1.H7_reg == DUV2.core.u_sha512_core_h1.H7_reg) &&
+		(DUV1.core.u_sha512_core_h1.a_reg == DUV2.core.u_sha512_core_h1.a_reg) &&
+		(DUV1.core.u_sha512_core_h1.b_reg == DUV2.core.u_sha512_core_h1.b_reg) &&
+		(DUV1.core.u_sha512_core_h1.c_reg == DUV2.core.u_sha512_core_h1.c_reg) &&
+		(DUV1.core.u_sha512_core_h1.d_reg == DUV2.core.u_sha512_core_h1.d_reg) &&
+		(DUV1.core.u_sha512_core_h1.digest_valid_reg == DUV2.core.u_sha512_core_h1.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h1.e_reg == DUV2.core.u_sha512_core_h1.e_reg) &&
+		(DUV1.core.u_sha512_core_h1.f_reg == DUV2.core.u_sha512_core_h1.f_reg) &&
+		(DUV1.core.u_sha512_core_h1.g_reg == DUV2.core.u_sha512_core_h1.g_reg) &&
+		(DUV1.core.u_sha512_core_h1.h_reg == DUV2.core.u_sha512_core_h1.h_reg) &&
+		(DUV1.core.u_sha512_core_h1.init_reg == DUV2.core.u_sha512_core_h1.init_reg) &&
+		(DUV1.core.u_sha512_core_h1.masking_rnd == DUV2.core.u_sha512_core_h1.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h1.ready_reg == DUV2.core.u_sha512_core_h1.ready_reg) &&
+		(DUV1.core.u_sha512_core_h1.rnd_ctr_reg == DUV2.core.u_sha512_core_h1.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.round_ctr_reg == DUV2.core.u_sha512_core_h1.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.sha512_ctrl_reg == DUV2.core.u_sha512_core_h1.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h1.w_mem_inst.w_mem) &&
+		(DUV1.core.u_sha512_core_h2.H0_reg == DUV2.core.u_sha512_core_h2.H0_reg) &&
+		(DUV1.core.u_sha512_core_h2.H1_reg == DUV2.core.u_sha512_core_h2.H1_reg) &&
+		(DUV1.core.u_sha512_core_h2.H2_reg == DUV2.core.u_sha512_core_h2.H2_reg) &&
+		(DUV1.core.u_sha512_core_h2.H3_reg == DUV2.core.u_sha512_core_h2.H3_reg) &&
+		(DUV1.core.u_sha512_core_h2.H4_reg == DUV2.core.u_sha512_core_h2.H4_reg) &&
+		(DUV1.core.u_sha512_core_h2.H5_reg == DUV2.core.u_sha512_core_h2.H5_reg) &&
+		(DUV1.core.u_sha512_core_h2.H6_reg == DUV2.core.u_sha512_core_h2.H6_reg) &&
+		(DUV1.core.u_sha512_core_h2.H7_reg == DUV2.core.u_sha512_core_h2.H7_reg) &&
+		(DUV1.core.u_sha512_core_h2.a_reg == DUV2.core.u_sha512_core_h2.a_reg) &&
+		(DUV1.core.u_sha512_core_h2.b_reg == DUV2.core.u_sha512_core_h2.b_reg) &&
+		(DUV1.core.u_sha512_core_h2.c_reg == DUV2.core.u_sha512_core_h2.c_reg) &&
+		(DUV1.core.u_sha512_core_h2.d_reg == DUV2.core.u_sha512_core_h2.d_reg) &&
+		(DUV1.core.u_sha512_core_h2.digest_valid_reg == DUV2.core.u_sha512_core_h2.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h2.e_reg == DUV2.core.u_sha512_core_h2.e_reg) &&
+		(DUV1.core.u_sha512_core_h2.f_reg == DUV2.core.u_sha512_core_h2.f_reg) &&
+		(DUV1.core.u_sha512_core_h2.g_reg == DUV2.core.u_sha512_core_h2.g_reg) &&
+		(DUV1.core.u_sha512_core_h2.h_reg == DUV2.core.u_sha512_core_h2.h_reg) &&
+		(DUV1.core.u_sha512_core_h2.init_reg == DUV2.core.u_sha512_core_h2.init_reg) &&
+		(DUV1.core.u_sha512_core_h2.masking_rnd == DUV2.core.u_sha512_core_h2.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h2.ready_reg == DUV2.core.u_sha512_core_h2.ready_reg) &&
+		(DUV1.core.u_sha512_core_h2.rnd_ctr_reg == DUV2.core.u_sha512_core_h2.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.round_ctr_reg == DUV2.core.u_sha512_core_h2.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.sha512_ctrl_reg == DUV2.core.u_sha512_core_h2.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h2.w_mem_inst.w_mem) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.rnd_reg) &&
+		(DUV1.hmac_block_kv_read.error_code == DUV2.hmac_block_kv_read.error_code) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.kv_fsm_ps == DUV2.hmac_block_kv_read.kv_read_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.num_dwords_data == DUV2.hmac_block_kv_read.kv_read_fsm.num_dwords_data) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.offset == DUV2.hmac_block_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_key_kv_read.error_code == DUV2.hmac_key_kv_read.error_code) &&
+		(DUV1.hmac_key_kv_read.kv_read_fsm.offset == DUV2.hmac_key_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_result_kv_write.error_code == DUV2.hmac_result_kv_write.error_code) &&
+		(DUV1.hmac_result_kv_write.kv_dest_write_fsm.kv_fsm_ps == DUV2.hmac_result_kv_write.kv_dest_write_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_result_kv_write.kv_dest_write_fsm.offset == DUV2.hmac_result_kv_write.kv_dest_write_fsm.offset) &&
+		(DUV1.i_hmac_reg.field_storage == DUV2.i_hmac_reg.field_storage)
+	);
+endfunction
+
+function automatic state_equivalence_except_hmac_result_kv_write$kv_dest_write_fsm$kv_fsm_ps();
+	state_equivalence_except_hmac_result_kv_write$kv_dest_write_fsm$kv_fsm_ps = (
+		(DUV1.block_reg_lock == DUV2.block_reg_lock) &&
+		(DUV1.error_flag_reg == DUV2.error_flag_reg) &&
+		(DUV1.key_mode_error_reg == DUV2.key_mode_error_reg) &&
+		(DUV1.key_zero_error_reg == DUV2.key_zero_error_reg) &&
+		(DUV1.kv_data_present == DUV2.kv_data_present) &&
+		(DUV1.kv_key_data_present == DUV2.kv_key_data_present) &&
+		(DUV1.kv_reg == DUV2.kv_reg) &&
+		(DUV1.ready_reg == DUV2.ready_reg) &&
+		(DUV1.tag_reg == DUV2.tag_reg) &&
+		(DUV1.tag_valid_reg == DUV2.tag_valid_reg) &&
+		(DUV1.core.digest_valid_reg == DUV2.core.digest_valid_reg) &&
+		(DUV1.core.hmac_ctrl_last == DUV2.core.hmac_ctrl_last) &&
+		(DUV1.core.hmac_ctrl_reg == DUV2.core.hmac_ctrl_reg) &&
+		(DUV1.core.mode_reg == DUV2.core.mode_reg) &&
+		(DUV1.core.u_sha512_core_h1.H0_reg == DUV2.core.u_sha512_core_h1.H0_reg) &&
+		(DUV1.core.u_sha512_core_h1.H1_reg == DUV2.core.u_sha512_core_h1.H1_reg) &&
+		(DUV1.core.u_sha512_core_h1.H2_reg == DUV2.core.u_sha512_core_h1.H2_reg) &&
+		(DUV1.core.u_sha512_core_h1.H3_reg == DUV2.core.u_sha512_core_h1.H3_reg) &&
+		(DUV1.core.u_sha512_core_h1.H4_reg == DUV2.core.u_sha512_core_h1.H4_reg) &&
+		(DUV1.core.u_sha512_core_h1.H5_reg == DUV2.core.u_sha512_core_h1.H5_reg) &&
+		(DUV1.core.u_sha512_core_h1.H6_reg == DUV2.core.u_sha512_core_h1.H6_reg) &&
+		(DUV1.core.u_sha512_core_h1.H7_reg == DUV2.core.u_sha512_core_h1.H7_reg) &&
+		(DUV1.core.u_sha512_core_h1.a_reg == DUV2.core.u_sha512_core_h1.a_reg) &&
+		(DUV1.core.u_sha512_core_h1.b_reg == DUV2.core.u_sha512_core_h1.b_reg) &&
+		(DUV1.core.u_sha512_core_h1.c_reg == DUV2.core.u_sha512_core_h1.c_reg) &&
+		(DUV1.core.u_sha512_core_h1.d_reg == DUV2.core.u_sha512_core_h1.d_reg) &&
+		(DUV1.core.u_sha512_core_h1.digest_valid_reg == DUV2.core.u_sha512_core_h1.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h1.e_reg == DUV2.core.u_sha512_core_h1.e_reg) &&
+		(DUV1.core.u_sha512_core_h1.f_reg == DUV2.core.u_sha512_core_h1.f_reg) &&
+		(DUV1.core.u_sha512_core_h1.g_reg == DUV2.core.u_sha512_core_h1.g_reg) &&
+		(DUV1.core.u_sha512_core_h1.h_reg == DUV2.core.u_sha512_core_h1.h_reg) &&
+		(DUV1.core.u_sha512_core_h1.init_reg == DUV2.core.u_sha512_core_h1.init_reg) &&
+		(DUV1.core.u_sha512_core_h1.masking_rnd == DUV2.core.u_sha512_core_h1.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h1.ready_reg == DUV2.core.u_sha512_core_h1.ready_reg) &&
+		(DUV1.core.u_sha512_core_h1.rnd_ctr_reg == DUV2.core.u_sha512_core_h1.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.round_ctr_reg == DUV2.core.u_sha512_core_h1.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.sha512_ctrl_reg == DUV2.core.u_sha512_core_h1.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h1.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h1.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h1.w_mem_inst.w_mem) &&
+		(DUV1.core.u_sha512_core_h2.H0_reg == DUV2.core.u_sha512_core_h2.H0_reg) &&
+		(DUV1.core.u_sha512_core_h2.H1_reg == DUV2.core.u_sha512_core_h2.H1_reg) &&
+		(DUV1.core.u_sha512_core_h2.H2_reg == DUV2.core.u_sha512_core_h2.H2_reg) &&
+		(DUV1.core.u_sha512_core_h2.H3_reg == DUV2.core.u_sha512_core_h2.H3_reg) &&
+		(DUV1.core.u_sha512_core_h2.H4_reg == DUV2.core.u_sha512_core_h2.H4_reg) &&
+		(DUV1.core.u_sha512_core_h2.H5_reg == DUV2.core.u_sha512_core_h2.H5_reg) &&
+		(DUV1.core.u_sha512_core_h2.H6_reg == DUV2.core.u_sha512_core_h2.H6_reg) &&
+		(DUV1.core.u_sha512_core_h2.H7_reg == DUV2.core.u_sha512_core_h2.H7_reg) &&
+		(DUV1.core.u_sha512_core_h2.a_reg == DUV2.core.u_sha512_core_h2.a_reg) &&
+		(DUV1.core.u_sha512_core_h2.b_reg == DUV2.core.u_sha512_core_h2.b_reg) &&
+		(DUV1.core.u_sha512_core_h2.c_reg == DUV2.core.u_sha512_core_h2.c_reg) &&
+		(DUV1.core.u_sha512_core_h2.d_reg == DUV2.core.u_sha512_core_h2.d_reg) &&
+		(DUV1.core.u_sha512_core_h2.digest_valid_reg == DUV2.core.u_sha512_core_h2.digest_valid_reg) &&
+		(DUV1.core.u_sha512_core_h2.e_reg == DUV2.core.u_sha512_core_h2.e_reg) &&
+		(DUV1.core.u_sha512_core_h2.f_reg == DUV2.core.u_sha512_core_h2.f_reg) &&
+		(DUV1.core.u_sha512_core_h2.g_reg == DUV2.core.u_sha512_core_h2.g_reg) &&
+		(DUV1.core.u_sha512_core_h2.h_reg == DUV2.core.u_sha512_core_h2.h_reg) &&
+		(DUV1.core.u_sha512_core_h2.init_reg == DUV2.core.u_sha512_core_h2.init_reg) &&
+		(DUV1.core.u_sha512_core_h2.masking_rnd == DUV2.core.u_sha512_core_h2.masking_rnd) &&
+		(DUV1.core.u_sha512_core_h2.ready_reg == DUV2.core.u_sha512_core_h2.ready_reg) &&
+		(DUV1.core.u_sha512_core_h2.rnd_ctr_reg == DUV2.core.u_sha512_core_h2.rnd_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.round_ctr_reg == DUV2.core.u_sha512_core_h2.round_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.sha512_ctrl_reg == DUV2.core.u_sha512_core_h2.sha512_ctrl_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg == DUV2.core.u_sha512_core_h2.w_mem_inst.w_ctr_reg) &&
+		(DUV1.core.u_sha512_core_h2.w_mem_inst.w_mem == DUV2.core.u_sha512_core_h2.w_mem_inst.w_mem) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[0].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[0].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[1].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[1].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[2].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[2].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[3].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[3].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[4].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[4].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[5].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[5].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[6].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[6].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[7].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[7].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[8].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[8].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[9].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[9].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[10].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[10].lfsr_inst_i.rnd_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.counter_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.counter_reg) &&
+		(DUV1.core.gen_lfsr[11].lfsr_inst_i.rnd_reg == DUV2.core.gen_lfsr[11].lfsr_inst_i.rnd_reg) &&
+		(DUV1.hmac_block_kv_read.error_code == DUV2.hmac_block_kv_read.error_code) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.kv_fsm_ps == DUV2.hmac_block_kv_read.kv_read_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.num_dwords_data == DUV2.hmac_block_kv_read.kv_read_fsm.num_dwords_data) &&
+		(DUV1.hmac_block_kv_read.kv_read_fsm.offset == DUV2.hmac_block_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_key_kv_read.error_code == DUV2.hmac_key_kv_read.error_code) &&
+		(DUV1.hmac_key_kv_read.kv_read_fsm.kv_fsm_ps == DUV2.hmac_key_kv_read.kv_read_fsm.kv_fsm_ps) &&
+		(DUV1.hmac_key_kv_read.kv_read_fsm.offset == DUV2.hmac_key_kv_read.kv_read_fsm.offset) &&
+		(DUV1.hmac_result_kv_write.error_code == DUV2.hmac_result_kv_write.error_code) &&
+		(DUV1.hmac_result_kv_write.kv_dest_write_fsm.offset == DUV2.hmac_result_kv_write.kv_dest_write_fsm.offset) &&
+		(DUV1.i_hmac_reg.field_storage == DUV2.i_hmac_reg.field_storage)
+	);
+endfunction
+
+
+//System Verilog library for TiDAL
+`include "tidal.sv"
+
+//TiDAL properties must be enclosed within begin_tda and end_tda macros
+`begin_tda(tda)
+
+property DiamondBlade_backward_core$hmac_ctrl_reg_cycle1;
+
+	during_o(t, 0, t, 1, blackboxing()) and
+	t ##0 state_equivalence_except_core$hmac_ctrl_reg() and
+	during_o(t, 0, t, 1, input_equivalence_except_src()) and
+	during_o(t, 0, t, 1, threat_model_global()) and
+	t ##0 threat_model_start()
+
+implies
+
+	t ##1 DUV1.busy_o == DUV2.busy_o;
+
+endproperty
+
+DiamondBlade_backward_core$hmac_ctrl_reg_cycle1prop: assert property (@(posedge clk) disable iff (reset_n==0) DiamondBlade_backward_core$hmac_ctrl_reg_cycle1);
+
+property DiamondBlade_backward_hmac_block_kv_read$kv_read_fsm$kv_fsm_ps_cycle1;
+
+	during_o(t, 0, t, 1, blackboxing()) and
+	t ##0 state_equivalence_except_hmac_block_kv_read$kv_read_fsm$kv_fsm_ps() and
+	during_o(t, 0, t, 1, input_equivalence_except_src()) and
+	during_o(t, 0, t, 1, threat_model_global()) and
+	t ##0 threat_model_start()
+
+implies
+
+	t ##1 DUV1.busy_o == DUV2.busy_o;
+
+endproperty
+
+DiamondBlade_backward_hmac_block_kv_read$kv_read_fsm$kv_fsm_ps_cycle1prop: assert property (@(posedge clk) disable iff (reset_n==0) DiamondBlade_backward_hmac_block_kv_read$kv_read_fsm$kv_fsm_ps_cycle1);
+
+property DiamondBlade_backward_hmac_key_kv_read$kv_read_fsm$kv_fsm_ps_cycle1;
+
+	during_o(t, 0, t, 1, blackboxing()) and
+	t ##0 state_equivalence_except_hmac_key_kv_read$kv_read_fsm$kv_fsm_ps() and
+	during_o(t, 0, t, 1, input_equivalence_except_src()) and
+	during_o(t, 0, t, 1, threat_model_global()) and
+	t ##0 threat_model_start()
+
+implies
+
+	t ##1 DUV1.busy_o == DUV2.busy_o;
+
+endproperty
+
+DiamondBlade_backward_hmac_key_kv_read$kv_read_fsm$kv_fsm_ps_cycle1prop: assert property (@(posedge clk) disable iff (reset_n==0) DiamondBlade_backward_hmac_key_kv_read$kv_read_fsm$kv_fsm_ps_cycle1);
+
+property DiamondBlade_backward_hmac_result_kv_write$kv_dest_write_fsm$kv_fsm_ps_cycle1;
+
+	during_o(t, 0, t, 1, blackboxing()) and
+	t ##0 state_equivalence_except_hmac_result_kv_write$kv_dest_write_fsm$kv_fsm_ps() and
+	during_o(t, 0, t, 1, input_equivalence_except_src()) and
+	during_o(t, 0, t, 1, threat_model_global()) and
+	t ##0 threat_model_start()
+
+implies
+
+	t ##1 DUV1.busy_o == DUV2.busy_o;
+
+endproperty
+
+DiamondBlade_backward_hmac_result_kv_write$kv_dest_write_fsm$kv_fsm_ps_cycle1prop: assert property (@(posedge clk) disable iff (reset_n==0) DiamondBlade_backward_hmac_result_kv_write$kv_dest_write_fsm$kv_fsm_ps_cycle1);
+
+`end_tda
+endmodule
+
+
+//Bind assertion module to DUV
+bind miter DB_AIP_bw_cycle1 inst_DB_AIP_bw_cycle1(.clk(clk), .reset_n(reset_n));
+

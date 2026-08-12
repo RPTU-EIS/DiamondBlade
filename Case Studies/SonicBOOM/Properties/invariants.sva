@@ -1,0 +1,304 @@
+function automatic stq_committed_implies_physical_address();
+	stq_committed_implies_physical_address = (
+		(DUV1.lsu.stq_0_bits_committed ? !DUV1.lsu.stq_0_bits_addr_is_virtual && DUV1.lsu.stq_0_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_1_bits_committed ? !DUV1.lsu.stq_1_bits_addr_is_virtual && DUV1.lsu.stq_1_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_2_bits_committed ? !DUV1.lsu.stq_2_bits_addr_is_virtual && DUV1.lsu.stq_2_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_3_bits_committed ? !DUV1.lsu.stq_3_bits_addr_is_virtual && DUV1.lsu.stq_3_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_4_bits_committed ? !DUV1.lsu.stq_4_bits_addr_is_virtual && DUV1.lsu.stq_4_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_5_bits_committed ? !DUV1.lsu.stq_5_bits_addr_is_virtual && DUV1.lsu.stq_5_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_6_bits_committed ? !DUV1.lsu.stq_6_bits_addr_is_virtual && DUV1.lsu.stq_6_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_7_bits_committed ? !DUV1.lsu.stq_7_bits_addr_is_virtual && DUV1.lsu.stq_7_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_8_bits_committed ? !DUV1.lsu.stq_8_bits_addr_is_virtual && DUV1.lsu.stq_8_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_9_bits_committed ? !DUV1.lsu.stq_9_bits_addr_is_virtual && DUV1.lsu.stq_9_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_10_bits_committed ? !DUV1.lsu.stq_10_bits_addr_is_virtual && DUV1.lsu.stq_10_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_11_bits_committed ? !DUV1.lsu.stq_11_bits_addr_is_virtual && DUV1.lsu.stq_11_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_12_bits_committed ? !DUV1.lsu.stq_12_bits_addr_is_virtual && DUV1.lsu.stq_12_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_13_bits_committed ? !DUV1.lsu.stq_13_bits_addr_is_virtual && DUV1.lsu.stq_13_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_14_bits_committed ? !DUV1.lsu.stq_14_bits_addr_is_virtual && DUV1.lsu.stq_14_bits_addr_valid : 1'b1) &&
+		(DUV1.lsu.stq_15_bits_committed ? !DUV1.lsu.stq_15_bits_addr_is_virtual && DUV1.lsu.stq_15_bits_addr_valid : 1'b1) &&
+
+		(DUV2.lsu.stq_0_bits_committed ? !DUV2.lsu.stq_0_bits_addr_is_virtual && DUV2.lsu.stq_0_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_1_bits_committed ? !DUV2.lsu.stq_1_bits_addr_is_virtual && DUV2.lsu.stq_1_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_2_bits_committed ? !DUV2.lsu.stq_2_bits_addr_is_virtual && DUV2.lsu.stq_2_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_3_bits_committed ? !DUV2.lsu.stq_3_bits_addr_is_virtual && DUV2.lsu.stq_3_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_4_bits_committed ? !DUV2.lsu.stq_4_bits_addr_is_virtual && DUV2.lsu.stq_4_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_5_bits_committed ? !DUV2.lsu.stq_5_bits_addr_is_virtual && DUV2.lsu.stq_5_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_6_bits_committed ? !DUV2.lsu.stq_6_bits_addr_is_virtual && DUV2.lsu.stq_6_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_7_bits_committed ? !DUV2.lsu.stq_7_bits_addr_is_virtual && DUV2.lsu.stq_7_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_8_bits_committed ? !DUV2.lsu.stq_8_bits_addr_is_virtual && DUV2.lsu.stq_8_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_9_bits_committed ? !DUV2.lsu.stq_9_bits_addr_is_virtual && DUV2.lsu.stq_9_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_10_bits_committed ? !DUV2.lsu.stq_10_bits_addr_is_virtual && DUV2.lsu.stq_10_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_11_bits_committed ? !DUV2.lsu.stq_11_bits_addr_is_virtual && DUV2.lsu.stq_11_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_12_bits_committed ? !DUV2.lsu.stq_12_bits_addr_is_virtual && DUV2.lsu.stq_12_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_13_bits_committed ? !DUV2.lsu.stq_13_bits_addr_is_virtual && DUV2.lsu.stq_13_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_14_bits_committed ? !DUV2.lsu.stq_14_bits_addr_is_virtual && DUV2.lsu.stq_14_bits_addr_valid : 1'b1) &&
+		(DUV2.lsu.stq_15_bits_committed ? !DUV2.lsu.stq_15_bits_addr_is_virtual && DUV2.lsu.stq_15_bits_addr_valid : 1'b1)
+	);
+endfunction
+
+function automatic stq_uses_stq_and_consistent_stq_idx();
+	stq_uses_stq_and_consistent_stq_idx = (
+		DUV1.lsu.stq_0_bits_uop_uses_stq && (DUV1.lsu.stq_0_bits_uop_stq_idx == 4'h0) &&
+		DUV1.lsu.stq_1_bits_uop_uses_stq && (DUV1.lsu.stq_1_bits_uop_stq_idx == 4'h1) &&
+		DUV1.lsu.stq_2_bits_uop_uses_stq && (DUV1.lsu.stq_2_bits_uop_stq_idx == 4'h2) &&
+		DUV1.lsu.stq_3_bits_uop_uses_stq && (DUV1.lsu.stq_3_bits_uop_stq_idx == 4'h3) &&
+		DUV1.lsu.stq_4_bits_uop_uses_stq && (DUV1.lsu.stq_4_bits_uop_stq_idx == 4'h4) &&
+		DUV1.lsu.stq_5_bits_uop_uses_stq && (DUV1.lsu.stq_5_bits_uop_stq_idx == 4'h5) &&
+		DUV1.lsu.stq_6_bits_uop_uses_stq && (DUV1.lsu.stq_6_bits_uop_stq_idx == 4'h6) &&
+		DUV1.lsu.stq_7_bits_uop_uses_stq && (DUV1.lsu.stq_7_bits_uop_stq_idx == 4'h7) &&
+		DUV1.lsu.stq_8_bits_uop_uses_stq && (DUV1.lsu.stq_8_bits_uop_stq_idx == 4'h8) &&
+		DUV1.lsu.stq_9_bits_uop_uses_stq && (DUV1.lsu.stq_9_bits_uop_stq_idx == 4'h9) &&
+		DUV1.lsu.stq_10_bits_uop_uses_stq && (DUV1.lsu.stq_10_bits_uop_stq_idx == 4'ha) &&
+		DUV1.lsu.stq_11_bits_uop_uses_stq && (DUV1.lsu.stq_11_bits_uop_stq_idx == 4'hb) &&
+		DUV1.lsu.stq_12_bits_uop_uses_stq && (DUV1.lsu.stq_12_bits_uop_stq_idx == 4'hc) &&
+		DUV1.lsu.stq_13_bits_uop_uses_stq && (DUV1.lsu.stq_13_bits_uop_stq_idx == 4'hd) &&
+		DUV1.lsu.stq_14_bits_uop_uses_stq && (DUV1.lsu.stq_14_bits_uop_stq_idx == 4'he) &&
+		DUV1.lsu.stq_15_bits_uop_uses_stq && (DUV1.lsu.stq_15_bits_uop_stq_idx == 4'hf) &&
+    DUV2.lsu.stq_0_bits_uop_uses_stq && (DUV2.lsu.stq_0_bits_uop_stq_idx == 4'h0) &&
+		DUV2.lsu.stq_1_bits_uop_uses_stq && (DUV2.lsu.stq_1_bits_uop_stq_idx == 4'h1) &&
+		DUV2.lsu.stq_2_bits_uop_uses_stq && (DUV2.lsu.stq_2_bits_uop_stq_idx == 4'h2) &&
+		DUV2.lsu.stq_3_bits_uop_uses_stq && (DUV2.lsu.stq_3_bits_uop_stq_idx == 4'h3) &&
+		DUV2.lsu.stq_4_bits_uop_uses_stq && (DUV2.lsu.stq_4_bits_uop_stq_idx == 4'h4) &&
+		DUV2.lsu.stq_5_bits_uop_uses_stq && (DUV2.lsu.stq_5_bits_uop_stq_idx == 4'h5) &&
+		DUV2.lsu.stq_6_bits_uop_uses_stq && (DUV2.lsu.stq_6_bits_uop_stq_idx == 4'h6) &&
+		DUV2.lsu.stq_7_bits_uop_uses_stq && (DUV2.lsu.stq_7_bits_uop_stq_idx == 4'h7) &&
+		DUV2.lsu.stq_8_bits_uop_uses_stq && (DUV2.lsu.stq_8_bits_uop_stq_idx == 4'h8) &&
+		DUV2.lsu.stq_9_bits_uop_uses_stq && (DUV2.lsu.stq_9_bits_uop_stq_idx == 4'h9) &&
+		DUV2.lsu.stq_10_bits_uop_uses_stq && (DUV2.lsu.stq_10_bits_uop_stq_idx == 4'ha) &&
+		DUV2.lsu.stq_11_bits_uop_uses_stq && (DUV2.lsu.stq_11_bits_uop_stq_idx == 4'hb) &&
+		DUV2.lsu.stq_12_bits_uop_uses_stq && (DUV2.lsu.stq_12_bits_uop_stq_idx == 4'hc) &&
+		DUV2.lsu.stq_13_bits_uop_uses_stq && (DUV2.lsu.stq_13_bits_uop_stq_idx == 4'hd) &&
+		DUV2.lsu.stq_14_bits_uop_uses_stq && (DUV2.lsu.stq_14_bits_uop_stq_idx == 4'he) &&
+		DUV2.lsu.stq_15_bits_uop_uses_stq && (DUV2.lsu.stq_15_bits_uop_stq_idx == 4'hf)
+	);
+endfunction
+
+function automatic ldq_uses_ldq_and_consistent_ldq_idx();
+	ldq_uses_ldq_and_consistent_ldq_idx = (
+		DUV1.lsu.ldq_0_bits_uop_uses_ldq && (DUV1.lsu.ldq_0_bits_uop_ldq_idx == 4'h0) &&
+		DUV1.lsu.ldq_1_bits_uop_uses_ldq && (DUV1.lsu.ldq_1_bits_uop_ldq_idx == 4'h1) &&
+		DUV1.lsu.ldq_2_bits_uop_uses_ldq && (DUV1.lsu.ldq_2_bits_uop_ldq_idx == 4'h2) &&
+		DUV1.lsu.ldq_3_bits_uop_uses_ldq && (DUV1.lsu.ldq_3_bits_uop_ldq_idx == 4'h3) &&
+		DUV1.lsu.ldq_4_bits_uop_uses_ldq && (DUV1.lsu.ldq_4_bits_uop_ldq_idx == 4'h4) &&
+		DUV1.lsu.ldq_5_bits_uop_uses_ldq && (DUV1.lsu.ldq_5_bits_uop_ldq_idx == 4'h5) &&
+		DUV1.lsu.ldq_6_bits_uop_uses_ldq && (DUV1.lsu.ldq_6_bits_uop_ldq_idx == 4'h6) &&
+		DUV1.lsu.ldq_7_bits_uop_uses_ldq && (DUV1.lsu.ldq_7_bits_uop_ldq_idx == 4'h7) &&
+		DUV1.lsu.ldq_8_bits_uop_uses_ldq && (DUV1.lsu.ldq_8_bits_uop_ldq_idx == 4'h8) &&
+		DUV1.lsu.ldq_9_bits_uop_uses_ldq && (DUV1.lsu.ldq_9_bits_uop_ldq_idx == 4'h9) &&
+		DUV1.lsu.ldq_10_bits_uop_uses_ldq && (DUV1.lsu.ldq_10_bits_uop_ldq_idx == 4'ha) &&
+		DUV1.lsu.ldq_11_bits_uop_uses_ldq && (DUV1.lsu.ldq_11_bits_uop_ldq_idx == 4'hb) &&
+		DUV1.lsu.ldq_12_bits_uop_uses_ldq && (DUV1.lsu.ldq_12_bits_uop_ldq_idx == 4'hc) &&
+		DUV1.lsu.ldq_13_bits_uop_uses_ldq && (DUV1.lsu.ldq_13_bits_uop_ldq_idx == 4'hd) &&
+		DUV1.lsu.ldq_14_bits_uop_uses_ldq && (DUV1.lsu.ldq_14_bits_uop_ldq_idx == 4'he) &&
+		DUV1.lsu.ldq_15_bits_uop_uses_ldq && (DUV1.lsu.ldq_15_bits_uop_ldq_idx == 4'hf) &&
+    DUV2.lsu.ldq_0_bits_uop_uses_ldq && (DUV2.lsu.ldq_0_bits_uop_ldq_idx == 4'h0) &&
+		DUV2.lsu.ldq_1_bits_uop_uses_ldq && (DUV2.lsu.ldq_1_bits_uop_ldq_idx == 4'h1) &&
+		DUV2.lsu.ldq_2_bits_uop_uses_ldq && (DUV2.lsu.ldq_2_bits_uop_ldq_idx == 4'h2) &&
+		DUV2.lsu.ldq_3_bits_uop_uses_ldq && (DUV2.lsu.ldq_3_bits_uop_ldq_idx == 4'h3) &&
+		DUV2.lsu.ldq_4_bits_uop_uses_ldq && (DUV2.lsu.ldq_4_bits_uop_ldq_idx == 4'h4) &&
+		DUV2.lsu.ldq_5_bits_uop_uses_ldq && (DUV2.lsu.ldq_5_bits_uop_ldq_idx == 4'h5) &&
+		DUV2.lsu.ldq_6_bits_uop_uses_ldq && (DUV2.lsu.ldq_6_bits_uop_ldq_idx == 4'h6) &&
+		DUV2.lsu.ldq_7_bits_uop_uses_ldq && (DUV2.lsu.ldq_7_bits_uop_ldq_idx == 4'h7) &&
+		DUV2.lsu.ldq_8_bits_uop_uses_ldq && (DUV2.lsu.ldq_8_bits_uop_ldq_idx == 4'h8) &&
+		DUV2.lsu.ldq_9_bits_uop_uses_ldq && (DUV2.lsu.ldq_9_bits_uop_ldq_idx == 4'h9) &&
+		DUV2.lsu.ldq_10_bits_uop_uses_ldq && (DUV2.lsu.ldq_10_bits_uop_ldq_idx == 4'ha) &&
+		DUV2.lsu.ldq_11_bits_uop_uses_ldq && (DUV2.lsu.ldq_11_bits_uop_ldq_idx == 4'hb) &&
+		DUV2.lsu.ldq_12_bits_uop_uses_ldq && (DUV2.lsu.ldq_12_bits_uop_ldq_idx == 4'hc) &&
+		DUV2.lsu.ldq_13_bits_uop_uses_ldq && (DUV2.lsu.ldq_13_bits_uop_ldq_idx == 4'hd) &&
+		DUV2.lsu.ldq_14_bits_uop_uses_ldq && (DUV2.lsu.ldq_14_bits_uop_ldq_idx == 4'he) &&
+		DUV2.lsu.ldq_15_bits_uop_uses_ldq && (DUV2.lsu.ldq_15_bits_uop_ldq_idx == 4'hf)
+	);
+endfunction
+
+function automatic exe_tlb_uop_mem_cmd_consistent();
+	exe_tlb_uop_mem_cmd_consistent = (
+		(DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'h0 || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'h6 : 1'b1) &&
+		(DUV2.lsu.exe_tlb_uop_0_uses_ldq ? DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'h0 || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'h6 : 1'b1) &&
+		(DUV1.lsu.exe_tlb_uop_0_uses_stq ? DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'h1 || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'h4 || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'h7 ||
+		DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'h8 || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'h9 || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'ha || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'hb ||
+		DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'hc || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'hd || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'he || DUV1.lsu.exe_tlb_uop_0_mem_cmd == 5'hf : 1'b1) &&
+		(DUV2.lsu.exe_tlb_uop_0_uses_stq ? DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'h1 || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'h4 || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'h7 ||
+		DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'h8 || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'h9 || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'ha || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'hb ||
+		DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'hc || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'hd || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'he || DUV2.lsu.exe_tlb_uop_0_mem_cmd == 5'hf : 1'b1)
+	);
+endfunction
+
+function automatic equal_paddr_on_hit();
+	equal_paddr_on_hit = (
+		(DUV1.lsu.dtlb.mpu_physaddr_0[31:0] == DUV1.lsu.dtlb.io_resp_0_paddr) &&
+		(DUV2.lsu.dtlb.mpu_physaddr_0[31:0] == DUV2.lsu.dtlb.io_resp_0_paddr)
+	);
+endfunction
+
+function automatic exe_tlb_uop();
+  exe_tlb_uop = (
+    (DUV1.lsu.exe_tlb_uop_0_ctrl_is_load == DUV1.lsu.exe_tlb_uop_0_uses_ldq) &&
+    (DUV1.lsu.exe_tlb_uop_0_ctrl_is_sta == DUV1.lsu.exe_tlb_uop_0_uses_stq) &&
+    (DUV2.lsu.exe_tlb_uop_0_ctrl_is_load == DUV2.lsu.exe_tlb_uop_0_uses_ldq) &&
+    (DUV2.lsu.exe_tlb_uop_0_ctrl_is_sta == DUV2.lsu.exe_tlb_uop_0_uses_stq)
+  );
+endfunction
+
+function automatic no_unprotected_dtlb_entry();
+	no_unprotected_dtlb_entry = (
+		(DUV1.lsu.dtlb.sectored_entries_0_data_0[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_0_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb.sectored_entries_0_data_1[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_0_data_1[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb.sectored_entries_0_data_2[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_0_data_2[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb.sectored_entries_0_data_3[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_0_data_3[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb.sectored_entries_1_data_0[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_1_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb.sectored_entries_1_data_1[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_1_data_1[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb.sectored_entries_1_data_2[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_1_data_2[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb.sectored_entries_1_data_3[33:14] == miter.SECRET_TAG ? DUV1.lsu.dtlb.sectored_entries_1_data_3[7:5] == 3'h0 : 1'b1) &&
+		//special entry
+		(DUV1.lsu.dtlb._ppn_T_40 == miter.SECRET_TAG ? DUV1.lsu.dtlb.special_entry_data_0[7:5] == 3'h0 : 1'b1) &&
+		//superpage entries 0 to 3
+		(DUV1.lsu.dtlb._ppn_T_8 == miter.SECRET_TAG ? DUV1.lsu.dtlb.superpage_entries_0_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb._ppn_T_16 == miter.SECRET_TAG ? DUV1.lsu.dtlb.superpage_entries_1_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb._ppn_T_24 == miter.SECRET_TAG ? DUV1.lsu.dtlb.superpage_entries_2_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV1.lsu.dtlb._ppn_T_32 == miter.SECRET_TAG ? DUV1.lsu.dtlb.superpage_entries_3_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_0_data_0[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_0_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_0_data_1[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_0_data_1[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_0_data_2[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_0_data_2[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_0_data_3[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_0_data_3[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_1_data_0[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_1_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_1_data_1[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_1_data_1[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_1_data_2[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_1_data_2[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb.sectored_entries_1_data_3[33:14] == miter.SECRET_TAG ? DUV2.lsu.dtlb.sectored_entries_1_data_3[7:5] == 3'h0 : 1'b1) &&
+		//special entry
+		(DUV2.lsu.dtlb._ppn_T_40 == miter.SECRET_TAG ? DUV2.lsu.dtlb.special_entry_data_0[7:5] == 3'h0 : 1'b1) &&
+		//superpage entries 0 to 3
+		(DUV2.lsu.dtlb._ppn_T_8 == miter.SECRET_TAG ? DUV2.lsu.dtlb.superpage_entries_0_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb._ppn_T_16 == miter.SECRET_TAG ? DUV2.lsu.dtlb.superpage_entries_1_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb._ppn_T_24 == miter.SECRET_TAG ? DUV2.lsu.dtlb.superpage_entries_2_data_0[7:5] == 3'h0 : 1'b1) &&
+		(DUV2.lsu.dtlb._ppn_T_32 == miter.SECRET_TAG ? DUV2.lsu.dtlb.superpage_entries_3_data_0[7:5] == 3'h0 : 1'b1)
+	);
+endfunction
+
+function automatic exe_tlb_uop_store_not_translated();
+	exe_tlb_uop_store_not_translated = (
+    (DUV1.lsu.exe_tlb_uop_0_uses_stq ? stq_addr_is_virtual_1[DUV1.lsu.exe_tlb_uop_0_stq_idx] == 1'b1 : 1'b1) &&
+    (DUV2.lsu.exe_tlb_uop_0_uses_stq ? stq_addr_is_virtual_2[DUV2.lsu.exe_tlb_uop_0_stq_idx] == 1'b1 : 1'b1)
+  );
+endfunction
+
+function automatic satp_ppn_not_secret();
+	satp_ppn_not_secret = (
+    (DUV1.core.csr.reg_satp_ppn[19:0] != miter.SECRET_TAG) &&
+    (DUV2.core.csr.reg_satp_ppn[19:0] != miter.SECRET_TAG)
+  );
+endfunction
+
+function automatic stq_succeeded_implies_committed();
+	stq_succeeded_implies_committed = (
+    (DUV1.lsu.stq_0_bits_succeeded ? DUV1.lsu.stq_0_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_1_bits_succeeded ? DUV1.lsu.stq_1_bits_committed : 1'b1) &&
+    (DUV1.lsu.stq_2_bits_succeeded ? DUV1.lsu.stq_2_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_3_bits_succeeded ? DUV1.lsu.stq_3_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_4_bits_succeeded ? DUV1.lsu.stq_4_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_5_bits_succeeded ? DUV1.lsu.stq_5_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_6_bits_succeeded ? DUV1.lsu.stq_6_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_7_bits_succeeded ? DUV1.lsu.stq_7_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_8_bits_succeeded ? DUV1.lsu.stq_8_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_9_bits_succeeded ? DUV1.lsu.stq_9_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_10_bits_succeeded ? DUV1.lsu.stq_10_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_11_bits_succeeded ? DUV1.lsu.stq_11_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_12_bits_succeeded ? DUV1.lsu.stq_12_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_13_bits_succeeded ? DUV1.lsu.stq_13_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_14_bits_succeeded ? DUV1.lsu.stq_14_bits_committed : 1'b1) &&
+		(DUV1.lsu.stq_15_bits_succeeded ? DUV1.lsu.stq_15_bits_committed : 1'b1) &&
+
+    (DUV2.lsu.stq_0_bits_succeeded ? DUV2.lsu.stq_0_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_1_bits_succeeded ? DUV2.lsu.stq_1_bits_committed : 1'b1) &&
+    (DUV2.lsu.stq_2_bits_succeeded ? DUV2.lsu.stq_2_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_3_bits_succeeded ? DUV2.lsu.stq_3_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_4_bits_succeeded ? DUV2.lsu.stq_4_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_5_bits_succeeded ? DUV2.lsu.stq_5_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_6_bits_succeeded ? DUV2.lsu.stq_6_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_7_bits_succeeded ? DUV2.lsu.stq_7_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_8_bits_succeeded ? DUV2.lsu.stq_8_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_9_bits_succeeded ? DUV2.lsu.stq_9_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_10_bits_succeeded ? DUV2.lsu.stq_10_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_11_bits_succeeded ? DUV2.lsu.stq_11_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_12_bits_succeeded ? DUV2.lsu.stq_12_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_13_bits_succeeded ? DUV2.lsu.stq_13_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_14_bits_succeeded ? DUV2.lsu.stq_14_bits_committed : 1'b1) &&
+		(DUV2.lsu.stq_15_bits_succeeded ? DUV2.lsu.stq_15_bits_committed : 1'b1)
+	);
+endfunction
+
+//secret address contains data, not a PTE
+function automatic s1_hella_req_not_secret();
+	s1_hella_req_not_secret = (
+    (DUV1.dcache.s1_valid_REG && DUV1.dcache.s1_req_0_is_hella ? DUV1.dcache.s1_req_0_addr != miter.SECRET_ADDR : 1'b1) &&
+    (DUV2.dcache.s1_valid_REG && DUV2.dcache.s1_req_0_is_hella ? DUV2.dcache.s1_req_0_addr != miter.SECRET_ADDR : 1'b1)
+	);
+endfunction
+
+function automatic exe_tlb_uop_load_br_mask_consistent();
+    case(DUV1.lsu.exe_tlb_uop_0_ldq_idx)
+    4'h0:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_0_bits_uop_br_mask : 1'b1);
+    end
+    4'h1:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_1_bits_uop_br_mask : 1'b1);
+    end
+    4'h2:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_2_bits_uop_br_mask : 1'b1);
+    end
+    4'h3:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_3_bits_uop_br_mask : 1'b1);
+    end
+    4'h4:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_4_bits_uop_br_mask : 1'b1);
+    end
+    4'h5:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_5_bits_uop_br_mask : 1'b1);
+    end
+    4'h6:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_6_bits_uop_br_mask : 1'b1);
+    end
+    4'h7:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_7_bits_uop_br_mask : 1'b1);
+    end
+    4'h8:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_8_bits_uop_br_mask : 1'b1);
+    end
+    4'h9:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_9_bits_uop_br_mask : 1'b1);
+    end
+    4'ha:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_10_bits_uop_br_mask : 1'b1);
+    end
+    4'hb:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_11_bits_uop_br_mask : 1'b1);
+    end
+    4'hc:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_12_bits_uop_br_mask : 1'b1);
+    end
+    4'hd:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_13_bits_uop_br_mask : 1'b1);
+    end
+    4'he:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_14_bits_uop_br_mask : 1'b1);
+    end
+    4'hf:
+    begin
+      exe_tlb_uop_load_br_mask_consistent = (DUV1.lsu.exe_tlb_uop_0_uses_ldq ? DUV1.lsu.exe_tlb_uop_0_br_mask == DUV1.lsu.ldq_15_bits_uop_br_mask : 1'b1);
+    end
+  endcase;
+endfunction

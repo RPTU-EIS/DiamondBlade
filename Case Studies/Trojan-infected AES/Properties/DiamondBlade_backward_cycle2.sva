@@ -1,0 +1,134 @@
+module DB_AIP_bw_cycle2(clk, reset_n);
+input clk;
+input reset_n;
+
+
+function automatic input_equivalence_except_src();
+	input_equivalence_except_src = (
+		(DUV1.encdec == DUV2.encdec) &&
+		(DUV1.keylen == DUV2.keylen) &&
+		(DUV1.reset_n == DUV2.reset_n) &&
+		(DUV1.block == DUV2.block) &&
+		(DUV1.init == DUV2.init) &&
+		(DUV1.next == DUV2.next) &&
+		(DUV1.clk == DUV2.clk)
+	);
+endfunction
+
+
+function automatic state_equivalence_except_aes_core_ctrl_reg0();
+	state_equivalence_except_aes_core_ctrl_reg0 = (
+		(DUV1.delay_reg == DUV2.delay_reg) &&
+		(DUV1.original_ready_reg == DUV2.original_ready_reg) &&
+		(DUV1.ready_reg == DUV2.ready_reg) &&
+		(DUV1.result_valid_reg == DUV2.result_valid_reg) &&
+		(DUV1.dec_block.block_w0_reg == DUV2.dec_block.block_w0_reg) &&
+		(DUV1.dec_block.block_w1_reg == DUV2.dec_block.block_w1_reg) &&
+		(DUV1.dec_block.block_w2_reg == DUV2.dec_block.block_w2_reg) &&
+		(DUV1.dec_block.block_w3_reg == DUV2.dec_block.block_w3_reg) &&
+		(DUV1.dec_block.dec_ctrl_reg == DUV2.dec_block.dec_ctrl_reg) &&
+		(DUV1.dec_block.ready_reg == DUV2.dec_block.ready_reg) &&
+		(DUV1.dec_block.round_ctr_reg == DUV2.dec_block.round_ctr_reg) &&
+		(DUV1.dec_block.sword_ctr_reg == DUV2.dec_block.sword_ctr_reg) &&
+		(DUV1.enc_block.block_w0_reg == DUV2.enc_block.block_w0_reg) &&
+		(DUV1.enc_block.block_w1_reg == DUV2.enc_block.block_w1_reg) &&
+		(DUV1.enc_block.block_w2_reg == DUV2.enc_block.block_w2_reg) &&
+		(DUV1.enc_block.block_w3_reg == DUV2.enc_block.block_w3_reg) &&
+		(DUV1.enc_block.enc_ctrl_reg == DUV2.enc_block.enc_ctrl_reg) &&
+		(DUV1.enc_block.ready_reg == DUV2.enc_block.ready_reg) &&
+		(DUV1.enc_block.round_ctr_reg == DUV2.enc_block.round_ctr_reg) &&
+		(DUV1.enc_block.sword_ctr_reg == DUV2.enc_block.sword_ctr_reg) &&
+		(DUV1.keymem.key_mem == DUV2.keymem.key_mem) &&
+		(DUV1.keymem.key_mem_ctrl_reg == DUV2.keymem.key_mem_ctrl_reg) &&
+		(DUV1.keymem.prev_key0_reg == DUV2.keymem.prev_key0_reg) &&
+		(DUV1.keymem.prev_key1_reg == DUV2.keymem.prev_key1_reg) &&
+		(DUV1.keymem.rcon_reg == DUV2.keymem.rcon_reg) &&
+		(DUV1.keymem.ready_reg == DUV2.keymem.ready_reg) &&
+		(DUV1.keymem.round_ctr_reg == DUV2.keymem.round_ctr_reg)
+	);
+endfunction
+
+function automatic state_equivalence_except_aes_core_ctrl_reg();
+	state_equivalence_except_aes_core_ctrl_reg = (
+		state_equivalence_except_aes_core_ctrl_reg0()
+	);
+endfunction
+
+function automatic state_equivalence_except_delay_reg0();
+	state_equivalence_except_delay_reg0 = (
+		(DUV1.aes_core_ctrl_reg == DUV2.aes_core_ctrl_reg) &&
+		(DUV1.original_ready_reg == DUV2.original_ready_reg) &&
+		(DUV1.ready_reg == DUV2.ready_reg) &&
+		(DUV1.result_valid_reg == DUV2.result_valid_reg) &&
+		(DUV1.dec_block.block_w0_reg == DUV2.dec_block.block_w0_reg) &&
+		(DUV1.dec_block.block_w1_reg == DUV2.dec_block.block_w1_reg) &&
+		(DUV1.dec_block.block_w2_reg == DUV2.dec_block.block_w2_reg) &&
+		(DUV1.dec_block.block_w3_reg == DUV2.dec_block.block_w3_reg) &&
+		(DUV1.dec_block.dec_ctrl_reg == DUV2.dec_block.dec_ctrl_reg) &&
+		(DUV1.dec_block.ready_reg == DUV2.dec_block.ready_reg) &&
+		(DUV1.dec_block.round_ctr_reg == DUV2.dec_block.round_ctr_reg) &&
+		(DUV1.dec_block.sword_ctr_reg == DUV2.dec_block.sword_ctr_reg) &&
+		(DUV1.enc_block.block_w0_reg == DUV2.enc_block.block_w0_reg) &&
+		(DUV1.enc_block.block_w1_reg == DUV2.enc_block.block_w1_reg) &&
+		(DUV1.enc_block.block_w2_reg == DUV2.enc_block.block_w2_reg) &&
+		(DUV1.enc_block.block_w3_reg == DUV2.enc_block.block_w3_reg) &&
+		(DUV1.enc_block.enc_ctrl_reg == DUV2.enc_block.enc_ctrl_reg) &&
+		(DUV1.enc_block.ready_reg == DUV2.enc_block.ready_reg) &&
+		(DUV1.enc_block.round_ctr_reg == DUV2.enc_block.round_ctr_reg) &&
+		(DUV1.enc_block.sword_ctr_reg == DUV2.enc_block.sword_ctr_reg) &&
+		(DUV1.keymem.key_mem == DUV2.keymem.key_mem) &&
+		(DUV1.keymem.key_mem_ctrl_reg == DUV2.keymem.key_mem_ctrl_reg) &&
+		(DUV1.keymem.prev_key0_reg == DUV2.keymem.prev_key0_reg) &&
+		(DUV1.keymem.prev_key1_reg == DUV2.keymem.prev_key1_reg) &&
+		(DUV1.keymem.rcon_reg == DUV2.keymem.rcon_reg) &&
+		(DUV1.keymem.ready_reg == DUV2.keymem.ready_reg) &&
+		(DUV1.keymem.round_ctr_reg == DUV2.keymem.round_ctr_reg)
+	);
+endfunction
+
+function automatic state_equivalence_except_delay_reg();
+	state_equivalence_except_delay_reg = (
+		state_equivalence_except_delay_reg0()
+	);
+endfunction
+
+
+//System Verilog library for TiDAL
+`include "tidal.sv"
+
+//TiDAL properties must be enclosed within begin_tda and end_tda macros
+`begin_tda(tda)
+
+property DiamondBlade_backward_aes_core_ctrl_reg_cycle2;
+
+	t ##0 state_equivalence_except_aes_core_ctrl_reg() and
+	during_o(t, 0, t, 1, input_equivalence_except_src())
+
+implies
+
+	t ##1 DUV1.ready == DUV2.ready;
+
+endproperty
+
+DiamondBlade_backward_aes_core_ctrl_reg_cycle2prop: assert property (@(posedge clk) disable iff (reset_n== 1'b0) DiamondBlade_backward_aes_core_ctrl_reg_cycle2);
+
+property DiamondBlade_backward_delay_reg_cycle2;
+
+	t ##0 state_equivalence_except_delay_reg() and
+	during_o(t, 0, t, 1, input_equivalence_except_src())
+
+implies
+
+	t ##1 DUV1.ready == DUV2.ready;
+
+endproperty
+
+DiamondBlade_backward_delay_reg_cycle2prop: assert property (@(posedge clk) disable iff (reset_n== 1'b0) DiamondBlade_backward_delay_reg_cycle2);
+
+`end_tda
+endmodule
+
+
+//Bind assertion module to DUV
+bind miter DB_AIP_bw_cycle2 inst_DB_AIP_bw_cycle2(.clk(clk), .reset_n(reset_n));
+

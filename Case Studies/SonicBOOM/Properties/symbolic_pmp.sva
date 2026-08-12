@@ -1,0 +1,185 @@
+//Macros for PMP address and config registers. Insert the hierachycal signal names here:
+`define PMP_CFG_REG miter.pmp_cfg_1
+`define PMP_ADDR_REG miter.pmp_addr_1
+
+//Macros for the symbolic variables for address and register index:
+`define SYMBOLIC_ADDR miter.SECRET_ADDR
+`define SYMBOLIC_REG_INDEX miter.pmp_reg_index
+
+//Look-up table functions for napot range calculations
+function automatic logic[31:0] get_napot_mask(logic[2:0] i);
+	casex(`PMP_ADDR_REG[i][31:2])
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxx0 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1111_1111_1000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xx01 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1111_1111_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_x011 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1111_1110_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_0111 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1111_1100_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxx0_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1111_1000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xx01_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1111_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_x011_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1110_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_0111_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1100_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxx0_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_1000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xx01_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1111_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_x011_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1110_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_0111_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1100_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxx0_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_1000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xx01_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1111_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_x011_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1110_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_0111_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1100_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxx0_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_1000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xx01_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1111_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_x011_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1110_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_0111_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1100_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxx0_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_1000_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xx01_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1111_0000_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_x011_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1110_0000_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_0111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1100_0000_0000_0000_0000_0000_0000;
+		30'bxx_xxx0_1111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_1000_0000_0000_0000_0000_0000_0000;
+		30'bxx_xx01_1111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1111_0000_0000_0000_0000_0000_0000_0000;
+		30'bxx_x011_1111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1110_0000_0000_0000_0000_0000_0000_0000;
+		30'bxx_0111_1111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1100_0000_0000_0000_0000_0000_0000_0000;
+		30'bx0_1111_1111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b1000_0000_0000_0000_0000_0000_0000_0000;
+		30'b01_1111_1111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
+		30'b11_1111_1111_1111_1111_1111_1111_1111 :	get_napot_mask = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
+		default																		:	get_napot_mask = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
+	endcase
+endfunction
+
+
+function automatic logic[31:0] get_napot_end(logic[2:0] i);
+	casex(`PMP_ADDR_REG[i][31:2])
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxx0 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_0000_1000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xx01 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_0001_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_x011 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_0010_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_0111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_0100_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxx0_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_1000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_xx01_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0001_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_x011_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0010_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxxx_0111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0100_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xxx0_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_1000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_xx01_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0001_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_x011_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0010_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxxx_0111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0100_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xxx0_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_1000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_xx01_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0001_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_x011_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0010_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxxx_0111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0100_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xxx0_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_1000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_xx01_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0001_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_x011_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0010_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxxx_0111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0100_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xxx0_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_1000_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_xx01_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0001_0000_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_x011_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0010_0000_0000_0000_0000_0000_0000;
+		30'bxx_xxxx_0111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0100_0000_0000_0000_0000_0000_0000;
+		30'bxx_xxx0_1111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_1000_0000_0000_0000_0000_0000_0000;
+		30'bxx_xx01_1111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0001_0000_0000_0000_0000_0000_0000_0000;
+		30'bxx_x011_1111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0010_0000_0000_0000_0000_0000_0000_0000;
+		30'bxx_0111_1111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0100_0000_0000_0000_0000_0000_0000_0000;
+		30'bx0_1111_1111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b1000_0000_0000_0000_0000_0000_0000_0000;
+		30'b01_1111_1111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
+		30'b11_1111_1111_1111_1111_1111_1111_1111 :	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
+		default																		:	get_napot_end = 32'b0000_0000_0000_0000_0000_0000_0000_0000;
+	endcase
+endfunction
+
+//core functions
+function automatic no_conflicting_entries(logic[2:0] i, logic [2:0] permissions, logic [31:0] start_address, logic [31:0] end_address);
+	if (i == 0)
+		begin
+		no_conflicting_entries = 1'b1;
+		end
+	else
+		begin
+		logic no_conflict = 1'b1;
+		for(int j=i-1;j>=0;j--)
+			begin
+			case (`PMP_CFG_REG[j][4:3])
+				2'b10: //NA4, 4byte region
+					no_conflict = no_conflict & (
+						( `PMP_CFG_REG[j][2:0] == permissions) ||	//same permissions
+						( `PMP_ADDR_REG[j] <  start_address ||	//address ranges are not overlapping
+						  `PMP_ADDR_REG[j] >= end_address)
+				  	);
+				2'b01: //TOR
+				begin
+					logic [31:0] local_start = (j > 0) ? `PMP_ADDR_REG[j-1] : 32'h0;
+					logic [31:0] local_end = `PMP_ADDR_REG[j];
+					no_conflict = no_conflict & (
+						( `PMP_CFG_REG[j][2:0] == permissions ) || 	//same permissions
+						( local_start < start_address ? local_end < start_address : (local_start > start_address ? local_start >= end_address : 1'b0)	)	//address ranges are not overlapping
+					);
+				end
+
+				2'b11: //NAPOT
+				begin
+					logic [31:0] napot_mask = get_napot_mask(j);
+					logic [31:0] local_start = `PMP_ADDR_REG[j] & napot_mask;
+					logic [31:0] local_end = (local_start + get_napot_end(j) >= 33'h1_0000_0000) || (`PMP_ADDR_REG[j][30:2] == 29'h1FFF_FFFF) ? 32'hFFFF_FFFF : local_start + get_napot_end(j);
+					no_conflict = no_conflict &
+					(
+						(`PMP_CFG_REG[j][2:0]	== permissions) ||
+						((local_start < start_address ? local_end < start_address : (local_start > start_address ? local_start >= end_address : 1'b0)))
+					);
+				end
+
+				2'b00: //disabled
+					no_conflict = no_conflict & 1'b1;
+			endcase;
+			end;
+		no_conflicting_entries = no_conflict;
+		end;
+endfunction
+
+
+//`PMP_CFG_REG format L??AAXWR | L=locking; ?=reserved; A=pmp mode bits(00=off, 01=TOR, 10=NA4, 11=NAPOT);
+// X=permission to execute; W=p.t. write; R=p.t. read
+function automatic pmp_entry_config(logic[2:0] i, logic [31:0] address, logic [2:0] permissions);
+	case (`PMP_CFG_REG[i][4:3])
+
+		2'b10: //NA4, 4byte region
+		begin
+			logic [31:0] start_address = address;
+			logic [31:0] end_address = address + 32'h1; //+1?
+			pmp_entry_config = (
+				no_conflicting_entries(i, permissions, start_address, end_address) &&
+				`PMP_CFG_REG[i] == {3'b000, 2'b10, permissions} &&
+				`PMP_ADDR_REG[i] == address
+			);
+		end
+
+		2'b01: //TOR
+		begin
+			logic [31:0] start_address = (i > 0) ? `PMP_ADDR_REG[i-1] : 32'h0;
+			logic [31:0] end_address = `PMP_ADDR_REG[i];
+			pmp_entry_config = (
+					no_conflicting_entries(i, permissions, start_address, end_address) &&
+					`PMP_CFG_REG[i] == {3'b000, 2'b01, permissions} &&
+					`PMP_ADDR_REG[i-1] <= address &&
+					`PMP_ADDR_REG[i] > address
+				);
+		end
+
+		2'b11: //NAPOT
+		begin
+			logic [31:0] napot_mask = get_napot_mask(i);
+			logic [31:0] start_address = `PMP_ADDR_REG[i] & napot_mask;
+			logic [31:0] end_address = (start_address + get_napot_end(i) >= 33'h1_0000_0000) || (`PMP_ADDR_REG[i][30:2] == 29'h1FFF_FFFF) ? 32'hFFFF_FFFF : start_address + get_napot_end(i);
+			pmp_entry_config = (
+				no_conflicting_entries(i, permissions, start_address, end_address) &&
+				`PMP_CFG_REG[i] == {3'b000, 2'b11, permissions} &&
+				start_address	<= address &&
+				end_address	> address
+			);
+		end
+
+		default:
+			pmp_entry_config = 1'b0;
+	endcase;
+
+endfunction
+
+function automatic pmp_enabled();
+	pmp_enabled = (
+		pmp_entry_config(`SYMBOLIC_REG_INDEX, `SYMBOLIC_ADDR, 3'b000)
+	);
+endfunction

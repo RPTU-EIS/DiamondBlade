@@ -1,0 +1,15 @@
+function automatic blackboxing();
+    blackboxing = 1'b1;
+endfunction
+
+function automatic sw_env_global();
+    sw_env_global = 1'b1;
+endfunction
+
+function automatic sw_env_start();
+    sw_env_start = 1'b1;
+endfunction
+
+function automatic invariants();
+    invariants = 1'b1;
+endfunction
